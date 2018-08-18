@@ -28,4 +28,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 ## FROM DEVELOPER
-I just created new app with 'ng new product-management' command angular-cli was already installed and then i just hit the command git init. so adding blank project structure on first commmit.
+1. I just created new app with 'ng new product-management' command angular-cli was already installed and then i just hit the command git init. so adding blank project structure on first commmit.
+
+2. Created Login Module using ng generate component/module 'name' --routing. Ignore spec.ts files from login folder.
