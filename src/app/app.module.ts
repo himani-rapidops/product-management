@@ -1,8 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouteModule } from './app.route';
 import { AppComponent } from './app.component';
+import { RouteModule } from './app.route';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { SharedModule } from './shared/shared.module';
+import { DataResolve } from './shared/data.resolve';
 
 @NgModule({
   declarations: [
@@ -10,10 +13,12 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    RouteModule,
-    FormsModule
+    FormsModule,
+    HttpModule,
+    SharedModule,
+    RouteModule
   ],
-  providers: [],
+  providers: [DataResolve],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

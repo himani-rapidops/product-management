@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   errorMessage: any;
   rememberMe: any;
 
-  constructor(private router: Router,  private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -26,10 +27,32 @@ export class LoginComponent implements OnInit {
     if (form.valid) {
       const userObj = {
         Email: this.Email,
-        Password: this.Password,
-        RememberMe : this.rememberMe
+        Password: this.Password
       };
-      console.log(userObj);
+      this.authService.login(userObj).subscribe(data => {
+        if (data.success) {
+          this.router.navigate(['/product']);
+          this.authService.storeUserData(data.token, data.user);
+          if (this.rememberMe) {
+            localStorage.setItem('remember', this.rememberMe);
+            localStorage.setItem('email', this.Email);
+            localStorage.setItem('password', this.Password);
+          } else {
+            localStorage.removeItem('remember');
+            localStorage.removeItem('email');
+            localStorage.removeItem('password');
+
+          }
+
+        } else {
+          this.isErrorMessage = true;
+          this.errorMessage = data.message;
+        }
+      });
     }
+    setTimeout(() => {
+      this.successMessage = false;
+      this.isErrorMessage = false;
+    }, 1000);
   }
 }

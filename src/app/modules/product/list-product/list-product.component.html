@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="container page">
+      <div class="alert alert-danger" *ngIf="isErrorMessage && errorMessage">{{errorMessage}}</div>
+      <div class="alert alert-success" *ngIf="isSuccessMessage && successMessage">{{successMessage}}</div>
+    <div class="row">
+      <h2>List</h2>
+    </div>
+    <div class="row" *ngIf="isProducts">
+      <table class="table" border="2">
+        <td>Product Name</td>
+        <td>Product Sku</td>
+        <td>Product Price</td>
+        <td>Product Image</td>
+        <td>More Product Images</td>
+        <td>Updated By</td>
+        <td>Edit</td>
+        <td>Delete</td>
+        <td>Adding Cart</td>
+        <tr *ngFor="let product of productList">
+          <td>{{product.ProductName}}</td>
+          <td>{{product.ProductSku}}</td>
+          <td>{{product.ProductPrice}}</td>
+          <td>
+            <img src="/server/{{product.ProductImage}}" alt="no image"  style="width: 100px;height: 100px;">
+          </td>
+          <td>
+            <div class="more-files" *ngFor="let image of product.MoreProductImages">
+              <img src="/server/{{image.path}}" alt="no image"  style="width: 100px;height: 100px;">
+            </div>
+          </td>
+          <td>{{product.UpdatedBy}}</td>
+          <td>  
+            <button type="button" class="btn btn-primary"  [routerLink]="['/product/edit/'+ product._id]">Edit</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="delete(product._id)">Delete</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-success" (click)="addToCart(product._id)">Add To Cart</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="no-record"*ngIf="!isProducts">No Records</div>
+    <button class="btn btn-success btn-add" [routerLink]="['/product/cart/'+userId]" style="margin-right:250px;">View Cart</button>&nbsp;&nbsp;
+    <button class="btn btn-success btn-add" [routerLink]="['/product/add']">Add Product</button>
+  </div>
+</div>

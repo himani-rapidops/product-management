@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
+import { AuthService } from '../auth.service';
 
 @NgModule({
   imports: [
@@ -10,7 +11,8 @@ import { LoginComponent } from './login.component';
     CommonModule,
     LoginRoutingModule
   ],
-  declarations: [LoginComponent]
+  declarations: [LoginComponent],
+  providers: [AuthService]
 })
 export class LoginModule { }
 

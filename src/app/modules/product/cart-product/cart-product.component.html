@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="container page">
+      <button class="btn btn-success btn-add" [routerLink]="['/product/list']" style="margin-left:1000px;">Product List</button>
+
+      <div class="row">
+        <h2>Cart Details</h2>
+      </div>
+      <div class="row" *ngIf="cartProductsList.length">
+        <table class="table" border="2">
+          <td>Product Name</td>
+          <td>Product Sku</td>
+          <td>Product Price</td>
+          <td>Product Image</td>
+          <tr *ngFor="let product of cartProductsList">
+            <td>{{product.ProductName}}</td>
+            <td>{{product.ProductSku}}</td>
+            <td>{{product.ProductPrice}}</td>
+            <td>
+              <img src="/server/{{product.ProductImage}}" alt="no image"  style="width: 100px;height: 100px;">
+            </td>
+          </tr>
+          <tr><td>Total</td><td>{{totalAmount}}</td></tr>
+        </table>
+      </div>
+      <div class="no-record"*ngIf="!cartProductsList.length">No Cart Items</div>
+    </div>
+  </div>
+  
