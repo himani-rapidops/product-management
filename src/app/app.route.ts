@@ -10,6 +10,10 @@ const routes: Routes = [
     path: 'login',
     loadChildren: './modules/auth/login/login.module#LoginModule'
   },
+  {
+    path: 'register',
+    loadChildren: './modules/auth/register/register.module#RegisterModule'
+  },
 ];
 
 export const RouteModule = RouterModule.forRoot(routes);
