@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegisterComponent implements OnInit {
   errorMessage: any;
   successMessage: any;
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
 
@@ -32,7 +33,6 @@ export class RegisterComponent implements OnInit {
       return false;
     }
   }
-
   passwordInputValues() {
     this.isPasswordMatch = true;
   }
@@ -43,8 +43,25 @@ export class RegisterComponent implements OnInit {
         Email: this.Email,
         Password: this.Password
       };
-      console.log(userObj);
+      this.authService.registerUser(userObj).subscribe(data => {
+        if (data.success) {
+          this.isSuccessMessage = true;
+          this.successMessage = data.message;
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 5000);
+        } else {
+          this.isErrorMessage = true;
+          this.errorMessage = data.message;
+        }
+
+      });
+
     }
+    setTimeout(() => {
+      this.successMessage = false;
+      this.isErrorMessage = false;
+    }, 5000);
   }
 
 
